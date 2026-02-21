@@ -1,0 +1,25 @@
+clc;
+clear;
+
+
+data = readmatrix('yacht_hydrodynamics.csv');
+
+Z = data(:,1:6);
+
+
+Y = data(:,7);
+
+
+[A, E, R2] = fit_linear(Z, Y);
+
+
+disp('Regression Coefficients (a0 through a6):')
+disp(A)
+
+
+x_cube = ones(1,6);
+X_cube = [1 x_cube];  
+Y_cube = X_cube * A;
+
+fprintf('R^2 value: %.4f\n', R2)
+fprintf('Residuary resistance for cube boat: %.6f\n', Y_cube)
